@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Personal Website</title>
+    <style>
+        :root {
+            /* 核心配色：极简黑白灰 + 强调色 */
+            --bg-color: #111111;
+            --text-color: #eeeeee;
+            --secondary-text: #a0a0a0;
+            --accent-color: #3b82f6; /* 科技蓝，可改为你喜欢的颜色 */
+            --hover-bg: #1f1f1f;
+            --border-color: #333333;
+            --container-width: 800px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 16px;
+            padding: 40px 20px;
+        }
+
+        /* 布局容器 */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+        }
+
+        /* 1. 头部名字 */
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+        }
+
+        /* 2. 个人介绍区域 (Flex布局) */
+        .profile {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .profile-text {
+            flex: 1;
+        }
+
+        .profile-text p {
+            margin-bottom: 15px;
+            color: var(--secondary-text);
+        }
+
+        /* 照片样式 */
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* 圆形头像 */
+            object-fit: cover;
+            border: 2px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        /* 3. 超链接区域 */
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .social-links a:hover {
+            border-bottom-color: var(--accent-color);
+            opacity: 0.8;
+        }
+
+        /* 通用标题样式 */
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
+        }
+
+        /* 4. Research 论文区域 */
+        .research-section {
+            margin-bottom: 50px;
+        }
+
+        .paper-item {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .paper-item:hover {
+            background-color: var(--hover-bg);
+        }
+
+
+
+        /* 1. 修改容器，让内部元素垂直居中 */
+        .paper-item {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            
+            /* 新增这行：垂直居中 */
+            align-items: center; 
+        }
+
+        /* 2. 修改图片样式，去掉之前的 align-self: flex-start */
+        .paper-img {
+            width: 200px;         
+            height: auto;          
+            object-fit: contain;   
+            border: none;          
+            background-color: transparent;
+            border-radius: 6px;    
+            flex-shrink: 0;
+
+            /* 删掉或注释掉下面这一行 */
+            /* align-self: flex-start; */ 
+            
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
+            transition: transform 0.2s;
+        }
+
+        /* 鼠标放上去图片稍微放大一点点，增加交互感 */
+        .paper-img:hover {
+            transform: scale(1.02);
+        }
+
+        .paper-details {
+            flex: 1;
+        }
+
+        .paper-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .paper-citation {
+            font-size: 0.9rem;
+            color: var(--secondary-text);
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .paper-links a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 2px 10px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .paper-links a:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* 5. Honors 区域 */
+        .honors-section {
+            margin-bottom: 50px;
+        }
+
+        .honor-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 5px;
+        }
+
+        .honor-name {
+            color: var(--text-color);
+        }
+
+        .honor-date {
+            color: var(--secondary-text);
+            font-family: monospace; /* 等宽字体显得比较Geek */
+        }
+
+        /* 底部访客地图 */
+        footer {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .clustrmaps-container {
+            margin-top: 20px;
+            opacity: 0.8;
+            filter: grayscale(100%); /* 让地图变黑白，更极简 */
+            transition: filter 0.3s;
+        }
+        
+        .clustrmaps-container:hover {
+            filter: grayscale(0%); /* 鼠标悬停变彩色 */
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 600px) {
+            .profile {
+                flex-direction: column-reverse; /* 手机上照片在上面 */
+                align-items: center;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+
+            .paper-item {
+                flex-direction: column;
+            }
+
+            .paper-img {
+                    width: 100%;       /* 手机上宽度占满屏幕 */
+                    height: auto;      /* 高度自动，按图片比例显示 */
+                    max-height: 250px; /* 限制最大高度，防止图片太长霸屏 */
+                    object-fit: cover; /* 依然保持裁剪填充 */
+                }
+        }
+        /* --- 浅色模式 (Light Mode) 变量覆盖 --- */
+        body.light-mode {
+            --bg-color: #ffffff;           /* 背景变白 */
+            --text-color: #333333;         /* 文字变深灰 */
+            --secondary-text: #555555;     /* 次级文字变灰 */
+            --border-color: #e0e0e0;       /* 边框变浅灰 */
+            --hover-bg: #f5f5f5;           /* 悬停背景变很淡的灰 */
+            /* --accent-color 保持蓝色不变，或者你可以改成深蓝 #2563eb */
+        }
+
+        /* 浅色模式下，地图需要反色处理 */
+        /* 因为你的地图设置是白色文字，在白背景下看不见，用 filter: invert(1) 把它反转成黑色 */
+        body.light-mode .clustrmaps-container {
+            filter: invert(1) grayscale(100%);
+            opacity: 1;
+        }
+
+        /* 切换按钮的样式 */
+        .theme-toggle-btn {
+            position: absolute;
+            top: 40px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 5px;
+            transition: transform 0.3s ease, color 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: rotate(15deg);
+            color: var(--accent-color);
+        }
+
+        /* 移动端按钮位置调整 */
+        @media (max-width: 600px) {
+            .theme-toggle-btn {
+                top: 20px;
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark Mode">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        <header>
+            <h1>Weihu Song (宋卫虎)</h1>
+        </header>
+
+        <section class="profile">
+            <div class="profile-text">
+                <p>
+                    Hi, I am a Ph.D. student at <strong>Beihang University</strong>, advised by Prof. Haogang Zhu. 
+                    My research interests include Diffusion Model, Graph Anomaly Detection, and llm.
+                </p>
+                <p>
+                    Previously, I received my B.S. degree from Hebei University of Engineering in 2022. 
+                    I am looking for research internship opportunities for Summer 2026.
+                </p>
+            </div>
+            <img src="images/person.jpg" alt="My Photo" class="profile-img">
+        </section>
+
+        <div class="social-links">
+            <a href="weihusong@buaa.edu.cn">Email</a>
+            <a href="https://scholar.google.com/citations?user=ttZdtlYKymIC&hl=en&oi=ao" target="_blank">Google Scholar</a>
+            <a href="https://github.com/weihus" target="_blank">Github</a>
+            <!-- <a href="https://twitter.com/yourusername" target="_blank">Twitter/X</a> -->
+        </div>
+
+        <section class="research-section">
+            <h2>Research</h2>
+            
+            <div class="paper-item">
+                <img src="images/FedDCL.jpg" alt="Paper Teaser" class="paper-img">
+                <div class="paper-details">
+                    <span class="paper-title">FedDCL: Federated Diffusion-enhanced Contrastive Learning for Graph Anomaly Detection</span>
+                    <p class="paper-citation">
+                        <strong>Weihu Song</strong>, Mengxiao Zhu*, Lei Li, Haogang Zhu*.<br>
+                        <em>preprint, 2025.</em>
+                    </p>
+                    <div class="paper-links">
+                        <!-- <a href="https://www.sciencedirect.com/science/article/abs/pii/S0031320325010490">Paper</a> -->
+                        <!-- <a href="https://github.com/weihus/MMP">Code</a> -->
+                        <!-- <a href="#">Project Page</a> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="paper-item">
+                <img src="images/ALRDM.jpg" alt="Paper Teaser" class="paper-img">
+                <div class="paper-details">
+                    <span class="paper-title">ARLDM: Autoencoder Reconstruction-based Latent Diffusion Model for Graph Anomaly Detection</span>
+                    <p class="paper-citation">
+                        <strong>Weihu Song</strong>, Mengxiao Zhu*, Lei Li, Ziyi Liu, Haogang Zhu*.<br>
+                        <!-- <em>Pattern Recognition (PR), 2025.</em> -->
+                        <em>preprint, 2025.</em>
+                    </p>
+                    <div class="paper-links">
+                        <!-- <a href="https://www.sciencedirect.com/science/article/abs/pii/S0031320325010490">Paper</a> -->
+                        <!-- <a href="https://github.com/weihus/MMP">Code</a> -->
+                        <!-- <a href="#">Project Page</a> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="paper-item">
+                <img src="images/MMP.jpg" alt="Paper Teaser" class="paper-img">
+                <div class="paper-details">
+                    <span class="paper-title">MMP: Enhancing unsupervised graph anomaly detection with multi-view message passing</span>
+                    <p class="paper-citation">
+                        <strong>Weihu Song</strong>, Lei Li, Mengxiao Zhu*, Yue Pei, Haogang Zhu*.<br>
+                        <em>Pattern Recognition (PR), 2025.</em>
+                    </p>
+                    <div class="paper-links">
+                        <a href="https://www.sciencedirect.com/science/article/abs/pii/S0031320325010490">Paper</a>
+                        <a href="https://github.com/weihus/MMP">Code</a>
+                        <!-- <a href="#">Project Page</a> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="paper-item">
+                <img src="images/Blockchain.jpg" alt="Paper Teaser" class="paper-img">
+                <div class="paper-details">
+                    <span class="paper-title">Blockchain Bottleneck Analysis Based on Performance Metrics Causality</span>
+                    <p class="paper-citation">
+                        <strong>Weihu Song</strong>, Mengxiao Zhu, Dong Lu, Chen Zhu, Jiejie Zhao, Yi Sun, Lei Li*, Haogang Zhu*.<br>
+                        <em>Electronics, 2024.</em>
+                    </p>
+                    <div class="paper-links">
+                        <a href="https://www.mdpi.com/2079-9292/13/21/4236">Paper</a>
+                        <!-- <a href="https://github.com/weihus/MMP">Code</a> -->
+                        <!-- <a href="#">Project Page</a> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="paper-item">
+                <img src="images/plunet.png" alt="Paper Teaser" class="paper-img">
+                <div class="paper-details">
+                    <span class="paper-title">PLU-Net: Extraction of multi-scale feature fusion</span>
+                    <p class="paper-citation">
+                        <strong>Weihu Song*</strong>, <a href="https://github.com/heng14" target="_blank", style="color: #3b82f6;">Heng Yu</a>, JianHua Wu.<br>
+                        <em>Medical Physics, 2024.</em>
+                    </p>
+                    <div class="paper-links">
+                        <a href="https://arxiv.org/abs/2302.11806">Paper</a>
+                        <!-- <a href="https://github.com/weihus/MMP">Code</a> -->
+                        <!-- <a href="#">Project Page</a> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="paper-item">
+                <img src="images/NPNet.png" alt="Paper Teaser" class="paper-img">
+                <div class="paper-details">
+                    <span class="paper-title">Non-pooling Network for medical image segmentation</span>
+                    <p class="paper-citation">
+                        <strong>Weihu Song*</strong>, <a href="https://github.com/heng14" target="_blank", style="color: #3b82f6;">Heng Yu</a>, JianHua Wu.<br>
+                        <em>Medical Imaging and Computer-Aided Diagnosis (MICAD), 2023-Best Paper Award.</em>
+                    </p>
+                    <div class="paper-links">
+                        <a href="https://arxiv.org/abs/2302.10412">Paper</a>
+                        <!-- <a href="#">Code</a> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="paper-item">
+                <img src="images/pnet.jpg" alt="Paper Teaser" class="paper-img">
+                <div class="paper-details">
+                    <span class="paper-title">Patch Network for medical image Segmentation</span>
+                    <p class="paper-citation">
+                        <strong>Weihu Song*</strong>, <a href="https://github.com/heng14" target="_blank", style="color: #3b82f6;">Heng Yu</a>, JianHua Wu.<br>
+                        <em>arXiv preprint, 2023.</em>
+                    </p>
+                    <div class="paper-links">
+                        <a href="https://arxiv.org/pdf/2302.11802">Paper</a>
+                        <a href="https://github.com/weihus/PNet">Code</a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="honors-section">
+            <h2>Honors & Awards</h2>
+            <div class="honor-item">
+                <span class="honor-name">CCF 北航分会执行委员</span>
+                <span class="honor-date">2024</span>
+            </div>
+            <div class="honor-item">
+                <span class="honor-name">研究生会组宣部部长</span>
+                <span class="honor-date">2021</span>
+            </div>
+            <div class="honor-item">
+                <span class="honor-name">优秀共青团员, 优秀学生干部</span>
+                <span class="honor-date">2020</span>
+            </div>
+            <div class="honor-item">
+                <span class="honor-name">舞社社长</span>
+                <span class="honor-date">2014-2016</span>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 Your Name. Last updated: Dec 12, 2024.</p>
+            
+            <div class="clustrmaps-container">
+                <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=LdcC_8paOqrDowOas9C8LsX8XM8eShO6G4Tgey2j0Nw&cl=ffffff&w=a"></script>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+        
+        // 图标 SVG 代码
+        const sunIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+        const moonIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+
+        // 1. 检查本地存储，看用户之前是否选过 Light Mode
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'light') {
+            body.classList.add('light-mode');
+            toggleBtn.innerHTML = sunIcon; // 如果是亮色模式，按钮显示太阳（表示可以切换回暗色）
+        }
+
+        // 2. 点击事件
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            
+            // 切换图标并保存设置
+            if (body.classList.contains('light-mode')) {
+                toggleBtn.innerHTML = sunIcon; // 变成太阳
+                localStorage.setItem('theme', 'light');
+            } else {
+                toggleBtn.innerHTML = moonIcon; // 变成月亮
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>
